@@ -4,6 +4,7 @@ This repository contains algortihms from the book in the title. The algorithms a
 
 #### Sorting
 
-* [merge_sort](./sorting/merge_sort.c)
+* [merge_sort](./sorting/merge_sort.c) -> `gcc merge_sort.c -lm`
+* [insertion_sor](./sorting/insertion_sort.c)
 
 ## @Regards, Alex

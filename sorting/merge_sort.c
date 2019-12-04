@@ -4,6 +4,46 @@
 #include <float.h> // to include DBL_MAX
 #include <time.h>  // for random generation
 
+void merge(double *vec, int start_index, int middle_index, int end_index);
+void merge_sort(double *vec, int start_index, int end_index);
+void print_vec(double *vec, int size, char *comment);
+
+int main(int argc, char *argv[])
+{
+
+    srand(time(NULL));
+
+    for (int vec_size = 4; vec_size < pow(2, 23); vec_size *= 2)
+    {
+        // alloc and fill vector
+        double *pseudo_random_vec = malloc(sizeof(double) * vec_size);
+        for (int i = 0; i < vec_size; ++i)
+        {
+            pseudo_random_vec[i] = (double)rand() / RAND_MAX * 2.0 - 1.0;
+        }
+
+        clock_t begin = clock();
+
+        merge_sort(pseudo_random_vec, 0, vec_size - 1);
+
+        clock_t end = clock();
+        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+        printf("%d\t%lf\n", vec_size, time_spent);
+    }
+
+    return 0;
+}
+
+void print_vec(double *vec, int size, char *comment)
+{
+    printf("%s\n", comment);
+    for (int i = 0; i < size; i++)
+    {
+        printf("%lf ", vec[i]);
+    }
+    printf("\n");
+}
+
 void merge(double *vec, int start_index, int middle_index, int end_index)
 {
 
@@ -53,40 +93,4 @@ void merge_sort(double *vec, int start_index, int end_index)
         merge_sort(vec, middle_index + 1, end_index);
         merge(vec, start_index, middle_index, end_index);
     }
-}
-
-void print_vec(double *vec, int size, char *comment)
-{
-    printf("%s\n", comment);
-    for (int i = 0; i < size; i++)
-    {
-        printf("%lf ", vec[i]);
-    }
-    printf("\n");
-}
-
-int main(int argc, char *argv[])
-{
-
-    srand(time(NULL));
-
-    for (int vec_size = 4; vec_size < pow(2, 23); vec_size *= 2)
-    {
-        // alloc and fill vector
-        double *pseudo_random_vec = malloc(sizeof(double) * vec_size);
-        for (int i = 0; i < vec_size; ++i)
-        {
-            pseudo_random_vec[i] = (double)rand() / RAND_MAX * 2.0 - 1.0;
-        }
-
-        clock_t begin = clock();
-
-        merge_sort(pseudo_random_vec, 0, vec_size - 1);
-
-        clock_t end = clock();
-        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("%d\t%lf\n", vec_size, time_spent);
-    }
-
-    return 0;
 }
