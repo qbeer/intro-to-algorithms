@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     srand(time(NULL));
 
-    for (int vec_size = 4; vec_size < pow(2, 23); vec_size *= 2)
+    for (int vec_size = 4; vec_size < pow(2, 20); vec_size *= 2)
     {
         // alloc and fill vector
         double *pseudo_random_vec = malloc(sizeof(double) * vec_size);
